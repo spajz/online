@@ -1,0 +1,10 @@
+{
+    "enabled": false,
+    "seeder": [
+        "Product\\Seeds\\ProductsSeeder",
+        "Product\\Seeds\\AttributesSeeder"
+    ],
+    "dashboard": true,
+    "icon": "fa-th-list",
+    "order": 150
+}

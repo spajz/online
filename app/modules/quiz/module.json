@@ -1,0 +1,6 @@
+{
+    "enabled": false,
+    "dashboard": true,
+    "icon": "fa-question-circle",
+    "order": 160
+}

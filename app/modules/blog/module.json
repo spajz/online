@@ -1,0 +1,6 @@
+{
+    "enabled": false,
+    "dashboard": true,
+    "icon": "fa-comment",
+    "order": 100
+}

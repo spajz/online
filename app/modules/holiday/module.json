@@ -1,0 +1,7 @@
+{
+    "enabled": true,
+    "seeder": "Holiday\\Seeds\\HolidaySeeder",
+    "dashboard": true,
+    "icon": "fa-file-image-o",
+    "order": 130
+}

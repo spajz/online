@@ -1,0 +1,7 @@
+{
+    "enabled": false,
+    "seeder": "Catalog\\Seeds\\CatalogSeeder",
+    "dashboard": true,
+    "icon": "fa-database",
+    "order": 120
+}
