@@ -284,21 +284,23 @@ class AdminController extends BaseController
 
         if (!Input::get('id')) return false;
 
+        $column = Input::get('column') ? Input::get('column') : 'status';
+
         $model = urldecode2(Input::get('model'));
 
         $item = $model::find(Input::get('id'));
 
-        if ($item->status != 1) $item->status = 1;
-        else $item->status = 0;
+        if ($item->$column != 1) $item->$column = 1;
+        else $item->$column = 0;
 
         $item->save();
 
-        return $this->dtStatusButton($item);
+        return $this->dtStatusButton($item, null, $column);
     }
 
-    public function dtStatusButton($data, $model = null)
+    public function dtStatusButton($data, $model = null, $column = 'status')
     {
-        return View::make('admin::datatable.but_status', array('data' => $data, 'model' => $model));
+        return View::make('admin::datatable.but_status', array('data' => $data, 'model' => $model, 'column' => $column));
     }
 
     public function getImage($path)

@@ -22,6 +22,7 @@ class CreateOnlineTable extends Migration {
             $table->integer('status')->default(0);
             $table->integer('menu')->default(0);
             $table->integer('featured')->default(0);
+            $table->integer('category_id')->nullable();
 
             $table->string('seo_title')->nullable();
             $table->string('seo_keywords')->nullable();

@@ -24,6 +24,12 @@
                 </div>
                 <div class="widget-content nopadding">
 
+                    {{ Former::text('title') }}
+
+                    {{ Former::text('slug') }}
+
+                    {{ Former::select('category_id')->label('Category') }}
+
                     <?php $i=0; ?>
                     @if($contentFiles)
                         @foreach($contentFiles as $file => $contentFile)
@@ -38,9 +44,6 @@
                         @endforeach
                     @endif
 
-                    {{ Former::text('title') }}
-
-                    {{ Former::text('slug') }}
 
                     {{ Former::text('tags')->class('tagsinput')->value($item->getTags()) }}
 
@@ -57,6 +60,12 @@
                     {{ Former::checkbox('featured')->class('icheck') }}
 
                     {{ Former::textarea('description')->id('editor1') }}
+
+                    <div class="fly-buttons">
+                            <input class="btn btn-success btn-sm" type="submit" value="Save" name="save[edit]" data-pjax="1">&nbsp;
+                            <input class="btn btn-success btn-sm" type="submit" value="Save & Exit" name="save[exit]">&nbsp;
+                            <input class="btn btn-success btn-sm" type="submit" value="Save & New" name="save[new]">&nbsp;
+                    </div>
 
                     <div class="form-group">
                         <div class="col-lg-offset-2 col-md-offset-3 col-sm-offset-3 col-lg-10 col-md-9 col-sm-9">

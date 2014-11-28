@@ -79,7 +79,7 @@ class CategoryController extends AdminController
             })
 
             ->addColumn('parents', function ($data) {
-                return implode(', ', array_flatten($data->getAncestors()->lists('title')));
+                return implode(', ', array_reverse(array_flatten($data->getAncestors()->lists('title'))));
             })
 
             ->addColumn('status', function ($data) use ($thisObj, $modelNameSpace) {
