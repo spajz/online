@@ -23,9 +23,9 @@ return array(
 		'mysql' => array(
 			'driver'    => 'mysql',
 			'host'      => 'localhost',
-			'database'  => 'afirma11_bktcms',
-			'username'  => 'afirma11_bktcms',
-			'password'  => '8ziu8i(1XJs8',
+			'database'  => 'db',
+			'username'  => 'db',
+			'password'  => 'db',
 			'charset'   => 'utf8',
 			'collation' => 'utf8_unicode_ci',
 			'prefix'    => '',
