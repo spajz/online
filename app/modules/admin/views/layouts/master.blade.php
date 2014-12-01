@@ -8,6 +8,7 @@
     <script type="text/javascript">
         var baseUrl = "{{ url('/') }}";
         var baseUrlAdmin = "{{ url('admin') }}";
+        var adminAssets = "{{ admin_asset('') }}/";
     </script>
 
     <link rel="stylesheet" href="<?= url('packages/module/admin/assets/css/bootstrap.min.css') ?>"/>
@@ -81,6 +82,8 @@
 <script src="<?= url('packages/module/admin/assets/js/jquery.fancytree-all.js') ?>"></script>
 <script src="<?= url('packages/module/admin/assets/js/bootstrap-tagsinput.min.js') ?>"></script>
 <script src="<?= url('packages/module/admin/assets/js/typeahead.bundle.min.js') ?>"></script>
+<script src="<?= url('packages/module/admin/assets/js/jquery.dataTables.columnFilter.js') ?>"></script>
+
 
 <script src="<?= url('packages/module/admin/assets/js/added.js') ?>"></script>
 

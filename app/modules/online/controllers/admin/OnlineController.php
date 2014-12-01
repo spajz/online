@@ -40,17 +40,21 @@ class OnlineController extends AdminController
     public function index()
     {
         $vars['table'] = Datatable::table()
-            ->addColumn('ID', 'Title', 'Featured', 'Status', 'Actions')
+            ->addColumn('ID', 'Title', 'Group', 'Featured', 'Status', 'Actions')
             ->setUrl(route("api.{$this->moduleAdminRoute}.dt"))
             ->noScript()
+            ->setId('table_' . $this->moduleLower)
             ->setCallbacks(
                 'aoColumnDefs', '[
                         {sClass:"center w40", aTargets:[0]},
-                        {sClass:"center w40", aTargets:[2]},
                         {sClass:"center w40", aTargets:[3]},
-                        {sClass:"center w170", aTargets:[4], bSortable: false }
+                        {sClass:"center w40", aTargets:[4]},
+                        {sClass:"center w170", aTargets:[5], bSortable: false }
                     ]'
             );
+
+        $categories = Category::orderBy('title')->lists('title');
+        $this->setDtSelectFilter(2, $categories);
 
         $this->layout->content = View::make("{$this->moduleLower}::admin.index", $vars);
     }
@@ -71,10 +75,13 @@ class OnlineController extends AdminController
         $modelNameSpace = get_class($model);
         $thisObj = $this;
         return Datatable::collection($model::all())
-            ->searchColumns('title')
+            ->searchColumns(array('1' => 'title', '2' => 'category_id'))
             //->orderColumns('id', 'title', 'status')
             ->showColumns('id')
             ->showColumns('title')
+            ->addColumn('category_id', function ($data) {
+                return isset($data->category->title) ? $data->category->title : '';
+            })
             ->addColumn('featured', function ($data) use ($thisObj, $modelNameSpace) {
                 return $thisObj->dtStatusButton($data, $modelNameSpace, 'featured')->render();
             })
@@ -97,12 +104,13 @@ class OnlineController extends AdminController
         $categoriesArray = array();
         foreach ($categories as $k => $category) {
             $tmp = implode('/', array_reverse(array_flatten($category->getAncestors()->lists('title'))));
-            if($tmp) $categoriesArray[$k] = $tmp . '/' . $category->title;
-            else $categoriesArray[$k] = $category->title;
+            if($tmp) $categoriesArray[$category->id] = $tmp . '/' . $category->title;
+            else $categoriesArray[$category->id] = $category->title;
         }
 
         asort($categoriesArray, SORT_NATURAL | SORT_FLAG_CASE);
-        $vars['categories'] = $categoriesArray;
+        $vars['categories'] = array('0' => '* N/A') + $categoriesArray;
+
 
 
 //        $t = \Conner\Tagging\Tag::all();
@@ -234,4 +242,5 @@ class OnlineController extends AdminController
         return Redirect::back();
 
     }
+
 }

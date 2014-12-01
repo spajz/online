@@ -57,6 +57,10 @@ return array(
 
             "bDeferRender" => true,
 
+            "sCookiePrefix" => 'grand_',
+
+            "bStateSave" => true,
+
         ),
 
         /*

@@ -28,8 +28,7 @@
 
                     {{ Former::text('slug') }}
 
-                    {{ Former::select('category_id')->label('Category') }}
-
+                    {{ Former::select('category_id')->label('Category')->options($categories)->help('Current category: ' . (isset($item->category->title) ? $item->category->title : 'N/A') ) }}
                     <?php $i=0; ?>
                     @if($contentFiles)
                         @foreach($contentFiles as $file => $contentFile)

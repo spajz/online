@@ -34,6 +34,8 @@ Route::group(array('prefix' => 'admin', 'before' => 'admin'), function () use ($
 
     Route::get("api/admin/get-image/{image}", array("as" => "api.admin.get.image", "uses" => $namespace . "AdminController@getImage"));
 
+    Route::post("api/admin/get-dt-filter", array("as" => "api.admin.get.dt.filter", "uses" => $namespace . "AdminController@getDtFilter"));
+
 });
 
 Route::get('admin/login', array('as' => 'admin.login', 'uses' => $namespace . 'AdminController@login'));

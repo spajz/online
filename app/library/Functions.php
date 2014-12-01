@@ -235,3 +235,16 @@ if (!function_exists('parsePageSignedRequest')) {
     }
 }
 
+if (!function_exists('dj')) {
+    function dj()
+    {
+        $out = array();
+        $numargs = func_num_args();
+        $arg_list = func_get_args();
+        for ($i = 0; $i < $numargs; $i++) {
+            $out[] = $arg_list[$i];
+        }
+        echo json_encode($out);
+    }
+}
+
