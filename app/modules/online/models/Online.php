@@ -25,6 +25,7 @@ class Online extends BaseModel implements SluggableInterface
         'sort',
         'menu',
         'featured',
+        'category_id'
     );
 
     public function images()
@@ -53,5 +54,10 @@ class Online extends BaseModel implements SluggableInterface
 
         }
         return null;
+    }
+
+    public function category()
+    {
+        return $this->belongsTo('Online\Models\Category', 'category_id');
     }
 }

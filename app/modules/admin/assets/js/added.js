@@ -18,7 +18,8 @@ $(document).ready(function () {
             type: 'get',
             data: {
                 "model": $thisObj.data('model'),
-                "id": $thisObj.data('id')
+                "id": $thisObj.data('id'),
+                "column": $thisObj.data('column')
             },
             success: function (data, status) {
                 $thisObj.replaceWith(data);

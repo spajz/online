@@ -5,12 +5,19 @@
         @endfor
     </colgroup>
     <thead>
-    <tr>
-        @foreach($columns as $i => $c)
-        <th align="center" valign="middle" class="head{{ $i }}">{{ $c }}</th>
-        @endforeach
-    </tr>
+        <tr>
+            @foreach($columns as $i => $c)
+            <th align="center" valign="middle" class="head{{ $i }}">{{ $c }}</th>
+            @endforeach
+        </tr>
     </thead>
+     <tfoot>
+        <tr>
+            @foreach($columns as $i => $c)
+            <th align="center" valign="middle" class="head{{ $i }}"></th>
+            @endforeach
+        </tr>
+    </tfoot>
     <tbody>
     @foreach($data as $d)
     <tr>

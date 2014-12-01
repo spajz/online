@@ -2,6 +2,7 @@
 
 use BaseController;
 use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Response;
 use Sentry;
 use View;
 use Redirect;
@@ -36,6 +37,8 @@ class AdminController extends BaseController
     protected $modelName;
     protected $facebookApi = null;
     protected $facebookSession = null;
+    protected $yadcf = array();
+    protected $dtSelectFilter = array();
 
     public function __construct()
     {
@@ -284,21 +287,23 @@ class AdminController extends BaseController
 
         if (!Input::get('id')) return false;
 
+        $column = Input::get('column') ? Input::get('column') : 'status';
+
         $model = urldecode2(Input::get('model'));
 
         $item = $model::find(Input::get('id'));
 
-        if ($item->status != 1) $item->status = 1;
-        else $item->status = 0;
+        if ($item->$column != 1) $item->$column = 1;
+        else $item->$column = 0;
 
         $item->save();
 
-        return $this->dtStatusButton($item);
+        return $this->dtStatusButton($item, null, $column);
     }
 
-    public function dtStatusButton($data, $model = null)
+    public function dtStatusButton($data, $model = null, $column = 'status')
     {
-        return View::make('admin::datatable.but_status', array('data' => $data, 'model' => $model));
+        return View::make('admin::datatable.but_status', array('data' => $data, 'model' => $model, 'column' => $column));
     }
 
     public function getImage($path)
@@ -348,4 +353,71 @@ class AdminController extends BaseController
 
         return Redirect::route("admin.{$this->moduleAdminRoute}.index");
     }
+
+    public function getDtFilter()
+    {
+        $column = Input::get('column');
+        $model = Input::get('model');
+        //return Response::json($model::orderBy($column, 'asc')->distinct()->lists($column));
+        $items = $model::orderBy($column, 'asc')->distinct()->get();
+        $out = array();
+        foreach ($items as $key => $item) {
+            $out[$item->title] = $item->title . ' - ' . count($item->online);
+        }
+        return Response::json($out);
+    }
+
+    public function setDtSelectFilter($colum, $array)
+    {
+
+
+        $out = '{ type: "select", values: ';
+        $out .= json_encode($array);
+        $out .= '}';
+
+        $this->dtSelectFilter[$colum] = $out;
+
+        $max_key = max(array_keys($array)); // 99
+
+//        .columnFilter({
+//          			aoColumns: [
+//          				     { type: "text" },
+//                             { type: "select", values: ff()}
+//          				]
+//          			});
+        $maxKey = max(array_keys($this->dtSelectFilter));
+
+
+        $out = array();
+        for ($i = 0; $i <= $maxKey; $i++) {
+            if (isset($this->dtSelectFilter[$i])) {
+                $out[] = $this->dtSelectFilter[$i];
+            } else {
+                $out[] = 'null';
+            }
+        }
+
+
+        View::share('columnFilter', 'oTable.columnFilter({ aoColumns: [ ' . implode(', ', $out) . ']});');
+    }
+
+    public function setDtSelectFilter2($colum, $model, $field)
+    {
+        $model = addslashes($model);
+        $out[] = 'column_number: ' . $colum;
+        $out[] = 'filter_type: "select"';
+        $out[] = "data: getDtFilter('{$model}', '{$field}')";
+
+        $this->yadcf[] = '{' . implode(',', $out) . '}';
+
+//        oTable.yadcf([{
+//          column_number : 1,
+//          filter_type: "select",
+//          data: dtSelectFilter('Online\\Models\\Online', 'title')
+//        }]);
+
+        View::share('yadcf', 'oTable.yadcf([' . implode(', ', $this->yadcf) . ']);');
+    }
+
+
 }

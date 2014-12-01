@@ -60,7 +60,9 @@ if ($json['enabled']) {
 
     // Front online routes
 //    Route::get("{$moduleLower}/{slug}", array("as" => "{$moduleLower}.show", "uses" => $moduleUpper . '\Controllers\\' . "{$moduleUpper}Controller@show"));
-    Route::get("{slug}", array("as" => "{$moduleLower}.show", "uses" => $moduleUpper . '\Controllers\\' . "{$moduleUpper}Controller@show"));
+    Route::get("{category}/{slug}", array("as" => "{$moduleLower}.show", "uses" => $moduleUpper . '\Controllers\\' . "{$moduleUpper}Controller@show"));
+
+    Route::get("{category}", array("as" => "{$moduleLower}.show", "uses" => $moduleUpper . '\Controllers\\' . "CategoryController@show"));
 
     Route::post("{$moduleLower}/process/{id}", array("as" => "{$moduleLower}.process", "uses" => $moduleUpper . '\Controllers\\' . "{$moduleUpper}Controller@process"));
 

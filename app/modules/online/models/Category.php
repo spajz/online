@@ -46,7 +46,7 @@ class Category extends Node implements SluggableInterface
     {
         $category = Category::find($this->parent_id);
         if ($attribute) {
-            return $category? $category->$attribute : null ;
+            return $category ? $category->$attribute : null;
         }
         return Category::find($this->parent_id);
     }
@@ -60,6 +60,10 @@ class Category extends Node implements SluggableInterface
                 $image->delete();
             }
         });
+    }
 
+    public function online()
+    {
+        return $this->hasMany('Online\Models\Online', 'category_id');
     }
 }

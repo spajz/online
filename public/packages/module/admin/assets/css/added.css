@@ -59,6 +59,13 @@
     max-width: 120px !important;
 }
 
+.fly-buttons{
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    z-index: 999;
+}
+
 #loader-box {
     position: fixed;
     top: 0;
@@ -78,24 +85,20 @@
     display: block;
 }
 
-.bootstrap-tagsinput{
+.bootstrap-tagsinput {
     display: block;
 }
 
-.bootstrap-tagsinput input{
+.bootstrap-tagsinput input {
     width: auto !important;
 }
 
-
-
-
-
-
-
-.bootstrap-tagsinput { width: 100%; }
+.bootstrap-tagsinput {
+    width: 100%;
+}
 
 .accordion {
-    margin-bottom:-3px;
+    margin-bottom: -3px;
 }
 
 .accordion-group {
@@ -107,8 +110,7 @@
     margin-bottom: 0;
 }
 
-.twitter-typeahead .tt-hint
-{
+.twitter-typeahead .tt-hint {
     display: none;
 }
 
@@ -132,6 +134,7 @@
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
     background-clip: padding-box;
 }
+
 .tt-suggestion > p {
     display: block;
     padding: 3px 20px;
@@ -141,6 +144,7 @@
     color: #333333;
     white-space: nowrap;
 }
+
 .tt-suggestion > p:hover,
 .tt-suggestion > p:focus,
 .tt-suggestion.tt-cursor p {
